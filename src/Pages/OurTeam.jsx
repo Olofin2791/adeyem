@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/Badge"
+import { Card, CardContent } from "@/components/ui/Card"
+import { Button } from "@/components/ui/Button"
 import { Users, Award, Mail, Linkedin, Twitter, ChevronDown, ChevronUp } from "lucide-react"
 import NavBar from "../components/NavBar"
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/Badge"
 import { CheckCircle } from "lucide-react"
 import NavBar from "../components/NavBar"
 
