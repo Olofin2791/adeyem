@@ -152,6 +152,7 @@ export default function HomePage() {
 
             {/* <span className="text-xl font-bold text-foreground">Adeyem Imperial Enterprise</span> */}
           </div>
+          
          <nav className="hidden md:flex items-center space-x-8 relative">
       <a href="#home" className="text-foreground hover:text-primary transition-colors">
         Home
@@ -207,7 +208,8 @@ export default function HomePage() {
     </nav>
           <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">Get Started</Button>
         </div>
-      </header>
+          </header>
+    
 
       {/* Hero Section with Carousel */}
       <section
