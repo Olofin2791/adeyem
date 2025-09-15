@@ -1,6 +1,6 @@
 import React from "react"
 import { Card, CardContent } from "../components/ui/Card"
-import { Button } from "../components/ui/button"
+import { Button } from "../components/ui/Button"
 import { Mail, Phone, MapPin } from "lucide-react"
 import NavBar from "../components/NavBar"
 
