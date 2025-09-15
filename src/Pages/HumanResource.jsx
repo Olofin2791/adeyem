@@ -22,6 +22,9 @@ import {
   Linkedin,
   Twitter,
   Facebook,
+  Menu,
+  X,
+  ChevronDown,
 } from "lucide-react"
 
 const carouselSlides = [
@@ -54,6 +57,7 @@ const services = [
       "Strategic recruitment and selection processes to find the perfect candidates for your organization.",
     slug: "talent-acquisition",
     path: "/services/talent-acquisition",
+    backgroundImage: "https://res.cloudinary.com/dang2kjfr/image/upload/v1757612392/premium_photo-1683140546178-3f52a918bc57_beih1e.jpg",
   },
   {
     icon: Target,
@@ -62,6 +66,7 @@ const services = [
       "Comprehensive systems to track, evaluate, and enhance employee performance and productivity.",
     slug: "branding-media",
     path: "/services/branding-media",
+    backgroundImage: "https://res.cloudinary.com/dang2kjfr/image/upload/v1757612494/360_F_249073153_HmszwE91KwSURMx8AZfmmcMJmyEjwXR3_ndszm6.jpg",
   },
   {
     icon: Award,
@@ -70,6 +75,7 @@ const services = [
       "Customized learning programs to upskill your workforce and drive professional growth.",
     slug: "hr-operations",
     path: "/services/hr-operations",
+    backgroundImage: "https://res.cloudinary.com/dang2kjfr/image/upload/v1757613023/images_ylflam.jpg",
   },
   {
     icon: Handshake,
@@ -78,6 +84,7 @@ const services = [
       "Foster positive workplace relationships and resolve conflicts with expert mediation services.",
     slug: "general-services",
     path: "/services/general-services",
+    backgroundImage: "https://res.cloudinary.com/dang2kjfr/image/upload/v1757694828/photo-1542744173-8e7e53415bb0_emewxf.avif",
   },
 ];
 
@@ -95,6 +102,7 @@ export default function HomePage() {
   const [isVisible, setIsVisible] = useState({})
   const navigate = useNavigate()
   const [open, setOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -143,15 +151,20 @@ export default function HomePage() {
       <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            
-       <img
-  src="https://res.cloudinary.com/dang2kjfr/image/upload/v1757710050/1757708375432-removebg-preview_igl56t.png"
-  alt="Adeyem Imperial Enterprise"
-  className="w-50 h-45rounded-lg absolute top--1 left-0 "
-/>
-
+            <img
+              src="https://res.cloudinary.com/dang2kjfr/image/upload/v1757710050/1757708375432-removebg-preview_igl56t.png"
+              alt="Adeyem Imperial Enterprise"
+              className="w-12 h-12 rounded-lg"
+            />
             {/* <span className="text-xl font-bold text-foreground">Adeyem Imperial Enterprise</span> */}
           </div>
+
+          <button
+            className="md:hidden text-foreground p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
           
          <nav className="hidden md:flex items-center space-x-8 relative">
       <a href="#home" className="text-foreground hover:text-primary transition-colors">
@@ -162,24 +175,13 @@ export default function HomePage() {
   About
 </Link>
       {/* Services Dropdown */}
-      <div
-        className="relative group"
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(true)}
-      >
+      <div className="relative">
         <button
           className="text-foreground hover:text-primary transition-colors flex items-center"
+          onClick={() => setOpen(!open)}
         >
           Services
-          <svg
-            className={`ml-2 h-4 w-4 transition-transform ${open ? "rotate-180" : "rotate-0"}`}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-          </svg>
+          <ChevronDown className={`ml-2 h-4 w-4 transition-transform ${open ? "rotate-180" : "rotate-0"}`} />
         </button>
 
         {open && (
@@ -187,8 +189,9 @@ export default function HomePage() {
             {services.map((service) => (
               <Link
                 key={service.slug}
-                to={service.path} // swap with <a href={service.path}> if not using React Router
+                to={service.path}
                 className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-gray-100"
+                onClick={() => setOpen(false)}
               >
                 <service.icon className="h-4 w-4 mr-2 text-primary" />
                 {service.title}
@@ -206,8 +209,51 @@ export default function HomePage() {
     Contact
   </Link>
     </nav>
-          <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">Get Started</Button>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-background border-t border-border">
+            <nav className="container mx-auto px-4 py-4 space-y-4">
+              <a href="#home" className="block text-foreground hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Home
+              </a>
+              <Link to="/about" className="block text-foreground hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                About
+              </Link>
+              <div className="space-y-2">
+                <button
+                  className="block text-foreground hover:text-primary transition-colors w-full text-left"
+                  onClick={() => setOpen(!open)}
+                >
+                  Services
+                  <ChevronDown className={`ml-2 h-4 w-4 inline transition-transform ${open ? "rotate-180" : "rotate-0"}`} />
+                </button>
+                {open && (
+                  <div className="pl-4 space-y-2">
+                    {services.map((service) => (
+                      <Link
+                        key={service.slug}
+                        to={service.path}
+                        className="block text-sm text-foreground hover:text-primary"
+                        onClick={() => { setOpen(false); setMobileMenuOpen(false); }}
+                      >
+                        <service.icon className="h-4 w-4 mr-2 inline" />
+                        {service.title}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <Link to="/our-team" className="block text-foreground hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Our Team
+              </Link>
+              <Link to="/contact" className="block text-foreground hover:text-primary transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                Contact
+              </Link>
+            </nav>
+          </div>
+        )}
           </header>
     
 
@@ -550,20 +596,26 @@ style={{
                 key={index}
                 id={`service-${index}`}
                 data-animate
-                className={`border border-border shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-2 bg-background/95 backdrop-blur-sm ${
+                className={`relative border border-border shadow-2xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-4 hover:scale-105 overflow-hidden ${
                   isVisible[`service-${index}`] ? "animate-fade-in-up" : "opacity-0"
                 }`}
-                style={{ animationDelay: `${index * 0.1}s` }}
+                style={{
+                  animationDelay: `${index * 0.1}s`,
+                  backgroundImage: `url(${service.backgroundImage})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
               >
-                <CardContent className="p-8 text-center space-y-4">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                    <service.icon className="w-8 h-8 text-primary" />
+                <div className="absolute inset-0 bg-black/40 hover:bg-black/30 transition-all duration-500"></div>
+                <CardContent className="relative p-8 text-center space-y-4 text-white">
+                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto">
+                    <service.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground">{service.title}</h3>
-                  <p className="text-muted-foreground text-pretty">{service.description}</p>
+                  <h3 className="text-xl font-semibold text-white">{service.title}</h3>
+                  <p className="text-white/90 text-pretty">{service.description}</p>
                   <Button
                     variant="ghost"
-                    className="text-primary hover:text-primary/80 hover:bg-primary/5"
+                    className="text-white hover:text-white/80 hover:bg-white/10 border border-white/30"
                     onClick={() => navigate(service.path)}
                   >
                     Learn More <ArrowRight className="ml-2 w-4 h-4" />
